@@ -20,23 +20,23 @@ public class SeesayApplication {
 	public CommandLineRunner commandLineRunner(ApplicationContext ctx){
 		return args -> {
 
-			ProcessBuilder processBuilder = new ProcessBuilder("python", "./src/main/resources/scripts/test.py");
-			processBuilder.redirectErrorStream(true);
-
-			Process process = processBuilder.start();
-			int exitCode = process.waitFor();
-
-			System.out.println(exitCode);
-
-			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-			StringBuilder builder = new StringBuilder();
-			String line = null;
-			while ( (line = reader.readLine()) != null) {
-				builder.append(line);
-				builder.append(System.getProperty("line.separator"));
-			}
-			String result = builder.toString();
-			System.out.println(result);
+//			ProcessBuilder processBuilder = new ProcessBuilder("python", "./src/main/resources/scripts/test.py");
+//			processBuilder.redirectErrorStream(true);
+//
+//			Process process = processBuilder.start();
+//			int exitCode = process.waitFor();
+//
+//			System.out.println(exitCode);
+//
+//			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+//			StringBuilder builder = new StringBuilder();
+//			String line = null;
+//			while ( (line = reader.readLine()) != null) {
+//				builder.append(line);
+//				builder.append(System.getProperty("line.separator"));
+//			}
+//			String result = builder.toString();
+//			System.out.println(result);
 
 //			System.out.println("Let's inspect the beans provided by Spring Boot:");
 //
