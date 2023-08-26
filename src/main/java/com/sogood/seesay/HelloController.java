@@ -14,7 +14,7 @@ public class HelloController {
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/")
     public Message index() throws InterruptedException, IOException {
-        ProcessBuilder processBuilder = new ProcessBuilder("python", "./src/main/resources/scripts/test.py");
+        ProcessBuilder processBuilder = new ProcessBuilder("python", "scripts/test.py");
         processBuilder.redirectErrorStream(true);
 
         Process process = processBuilder.start();
