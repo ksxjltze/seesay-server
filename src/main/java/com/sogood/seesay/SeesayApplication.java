@@ -8,8 +8,6 @@ import org.springframework.context.annotation.Bean;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.List;
 
 @SpringBootApplication
 public class SeesayApplication {
