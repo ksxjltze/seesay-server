@@ -29,8 +29,8 @@ def capture():
     f = open('./image.jpeg', 'wb')
     f.write(request.data)
     f.close()
-    describe_image('./image.jpeg', replicate_token)
-    return '{"text": "Image file saved!"}'
+    result = describe_image('./image.jpeg', replicate_token)
+    return '{"text": "' + result + '"}'
 
 @app.route('/test', methods = ['POST'])
 def test():

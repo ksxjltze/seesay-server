@@ -8,4 +8,4 @@ def describe_image(file_path, token):
         input={"image": open(os.path.dirname(__file__) +  "\\" + file_path, "rb"),
             "prompt": "what is this image, explain to me in detail?"}
     )
-    print(output)
+    return output
