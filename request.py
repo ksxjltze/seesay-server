@@ -9,71 +9,31 @@ import replicate
 import pyttsx3 
 import cv2
 
+def describe_image(file_path, token, prompt):
+    replicate_client = replicate.Client(api_token=token)
+    output = replicate_client.run(
+        "daanelson/minigpt-4:b96a2f33cc8e4b0aa23eacfce731b9c41a7d9466d9ed4e167375587b54db9423",
+        input={"image": open(os.path.dirname(__file__) +  "\\" + file_path, "rb"),
+            "prompt": prompt}
+    )
+    return output
 
-cam_port = 0
-cam = cv2.VideoCapture(cam_port)
-  
-cv2.namedWindow("test")
+def speech_to_text(file_path):
+    speech_path = os.path.dirname(__file__) + file_path
 
-img_counter = 0
-while True:
-    ret, frame = cam.read()
-    if not ret:
-        print("failed to grab frame")
-        break
-    cv2.imshow("test", frame)
+    # get text from speech 
+    openai.api_key = constants.OPENAI_API_KEY
+    f = open(speech_path, "rb")
+    transcript = openai.Audio.transcribe("whisper-1", f, language="en")
+    return transcript["text"]
 
-    k = cv2.waitKey(1)
-    if k%256 == 27:
-        # ESC pressed
-        print("Escape hit, closing...")
-        break
-    elif k%256 == 32:
-        # SPACE pressed
-        img_name = "captured.png".format(img_counter)
-        cv2.imwrite(img_name, frame)
-        print("{} written!".format(img_name))
-        img_counter += 1
+def text_to_speech(text):
+    # text to speech
+    engine = pyttsx3.init() # object creation
+    engine.say(text)
+    engine.runAndWait()
+    engine.stop()
+    engine.runAndWait()
 
-cam.release()
-
-cv2.destroyAllWindows()
-
-# get image
-image_path = os.path.dirname(__file__) +  "/captured.png"
-
-# record speech
-sampling_frequency = 44100
-duration = 10
-recording = sd.rec(int(duration * sampling_frequency),
-                    samplerate=sampling_frequency,
-                    channels=1)  # Adjust channels as needed (1 or 2)
-print("Starting: Speak now!")
-sd.wait()
-print("finished")
-write("recording0.wav", sampling_frequency, recording)
-
-speech_path = os.path.dirname(__file__) + "/recording0.wav"
-
-# get text from speech 
-openai.api_key = constants.OPENAI_API_KEY
-f = open(speech_path, "rb")
-transcript = openai.Audio.transcribe("whisper-1", f, language="en")
-
-# explain image
-replicate_client = replicate.Client(api_token=constants.REPLICATE_API_KEY)
-output = replicate_client.run(
-    "daanelson/minigpt-4:b96a2f33cc8e4b0aa23eacfce731b9c41a7d9466d9ed4e167375587b54db9423",
-    input={"image": open(image_path, "rb"),
-           "prompt": transcript["text"]}
-)
-print(output)
-# text to speech
-engine = pyttsx3.init() # object creation
-engine.say(output)
-engine.runAndWait()
-engine.stop()
-engine.runAndWait()
-
-# print output for debugging
-print(output)
+    # print output for debugging
+    print(text)
