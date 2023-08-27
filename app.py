@@ -2,7 +2,7 @@ from flask import Flask
 from flask_cors import CORS, cross_origin
 from flask import request
 
-from request import describe_image, speech_to_text
+from request import describe_image, speech_to_text, text_to_speech
 from dotenv import load_dotenv
 import os
 
@@ -15,6 +15,7 @@ CORS(app)
 
 #temp
 transcript = "describe the image as if you were talking to a blind person"
+result = ""
 
 @app.route("/")
 def helloWorld():
@@ -36,6 +37,11 @@ def capture():
     f.close()
     result = describe_image('./image.jpeg', replicate_token, transcript)
     return '{"text": "' + result + '"}'
+
+@app.route('/texttospeech', methods = ['POST'])
+def textToSpeech():
+    outputText = text_to_speech(result)
+    return '{"text": "' + outputText + '"}'
 
 @app.route('/test', methods = ['POST'])
 def test():
