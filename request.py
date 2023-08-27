@@ -1,7 +1,6 @@
 import os
 import openai
 import replicate
-import pyttsx3 
 
 def describe_image(file_path, token, prompt):
     replicate_client = replicate.Client(api_token=token)
@@ -21,13 +20,13 @@ def speech_to_text(file_path, token):
     transcript = openai.Audio.transcribe("whisper-1", f, language="en")
     return transcript["text"]
 
-def text_to_speech(text):
-    # text to speech
-    engine = pyttsx3.init() # object creation
-    engine.say(text)
-    engine.runAndWait()
-    engine.stop()
-    engine.runAndWait()
+# def text_to_speech(text):
+#     # text to speech
+#     engine = pyttsx3.init() # object creation
+#     engine.say(text)
+#     engine.runAndWait()
+#     engine.stop()
+#     engine.runAndWait()
 
-    # print output for debugging
-    print(text)
+#     # print output for debugging
+#     print(text)
