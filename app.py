@@ -15,7 +15,7 @@ CORS(app)
 
 #temp
 transcript = "describe the image as if you were talking to a blind person"
-result = ""
+result = "why is this image important?"
 
 @app.route("/")
 def helloWorld():
@@ -35,13 +35,19 @@ def capture():
     f = open('./image.jpeg', 'wb')
     f.write(request.data)
     f.close()
+    
+    global result
     result = describe_image('./image.jpeg', replicate_token, transcript)
     return '{"text": "' + result + '"}'
 
 @app.route('/texttospeech', methods = ['POST'])
 def textToSpeech():
-    outputText = text_to_speech(result,request.data)
+    outputText = text_to_speech(result, str(request.data.decode("utf-8")))
     return '{"text": "' + outputText + '"}'
+
+@app.route('/speak')
+def speak():
+    return send_file("welcome.mp3", mimetype="audio/mp3", as_attachment=True, attachment_filename="speak.mp3") #hard code lol
 
 @app.route('/test', methods = ['POST'])
 def test():

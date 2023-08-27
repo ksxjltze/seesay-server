@@ -22,7 +22,9 @@ def speech_to_text(file_path, token):
     transcript = openai.Audio.transcribe("whisper-1", f, language="en")
     return transcript["text"]
 
-def text_to_speech(text,langCode):
+def text_to_speech(txt, langCode):
+
+    output = ''
 
     # translate the reply
     language = 'zh'
@@ -41,7 +43,8 @@ def text_to_speech(text,langCode):
     print(output)
 
     # text to speech
-    myobj = gTTS(text=text, lang=langCode, slow=False)
+    print(txt)
+    myobj = gTTS(text=txt, lang=langCode, slow=False)
     myobj.save("welcome.mp3")
 
     # play audio

@@ -13,6 +13,7 @@ ffmpeg==1.4
 Flask==2.3.3
 Flask-Cors==4.0.0
 frozenlist==1.4.0
+gTTS==2.3.2
 idna==3.4
 itsdangerous==2.1.2
 Jinja2==3.1.2
@@ -32,4 +33,3 @@ typing_extensions==4.7.1
 urllib3==2.0.4
 Werkzeug==2.3.7
 yarl==1.9.2
-gtts==2.3.2
