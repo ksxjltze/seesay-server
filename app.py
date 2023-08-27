@@ -43,7 +43,7 @@ def capture():
 @app.route('/texttospeech', methods = ['POST'])
 def textToSpeech():
     outputText = text_to_speech(result, str(request.data.decode("utf-8")))
-    return '{"text": "' + outputText + '"}'
+    return '{"text": "lol"}'
 
 @app.route('/speak')
 def speak():
