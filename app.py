@@ -40,7 +40,7 @@ def capture():
 
 @app.route('/texttospeech', methods = ['POST'])
 def textToSpeech():
-    outputText = text_to_speech(result)
+    outputText = text_to_speech(result,request.data)
     return '{"text": "' + outputText + '"}'
 
 @app.route('/test', methods = ['POST'])
