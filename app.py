@@ -38,6 +38,9 @@ def capture():
     
     global result
     result = describe_image('./image.jpeg', replicate_token, transcript)
+
+    print(result)
+    result = result.replace("\"", "")
     return '{"text": "' + result + '"}'
 
 @app.route('/texttospeech', methods = ['POST'])
