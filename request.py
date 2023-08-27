@@ -47,7 +47,4 @@ def text_to_speech(txt, langCode):
     myobj = gTTS(text=txt, lang=langCode, slow=False)
     myobj.save("welcome.mp3")
 
-    # play audio
-    webbrowser.open("welcome.mp3")
-
     return output

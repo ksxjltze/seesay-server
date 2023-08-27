@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, send_file
 from flask_cors import CORS, cross_origin
 from flask import request
 
@@ -47,7 +47,7 @@ def textToSpeech():
 
 @app.route('/speak')
 def speak():
-    return send_file("welcome.mp3", mimetype="audio/mp3", as_attachment=True, attachment_filename="speak.mp3") #hard code lol
+    return send_file("welcome.mp3", mimetype="audio/mpeg") #hard code lol
 
 @app.route('/test', methods = ['POST'])
 def test():
