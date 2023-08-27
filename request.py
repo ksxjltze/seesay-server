@@ -19,15 +19,13 @@ def speech_to_text(file_path, token):
     # get text from speech 
     openai.api_key = token
     f = open(speech_path, "rb")
-    transcript = openai.Audio.transcribe("whisper-1", f, language="en")
+    # transcript = openai.Audio.transcribe("whisper-1", f, language="en")
+    transcript = openai.Audio.translate("whisper-1", f)
     return transcript["text"]
 
 def text_to_speech(txt, langCode):
 
-    output = ''
-
     # translate the reply
-    language = 'zh'
     language_dictionary = {
         "zh": "Chinese",
         "en": "English",
@@ -35,8 +33,8 @@ def text_to_speech(txt, langCode):
         "hi": "Hindi",
         "pt": "Portuguese"
     }
-    if (language != "en"):
-        completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{"role": "user", "content": "Translate the following into " + language_dictionary[langCode] + " without extraneous words: " + output}])
+    if (langCode != "en"):
+        completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{"role": "user", "content": "Translate the following into " + language_dictionary[langCode] + " without extraneous words: " + txt}])
         output = completion.choices[0].message.content
 
     print("Translated Explanation:")
@@ -44,7 +42,7 @@ def text_to_speech(txt, langCode):
 
     # text to speech
     print(txt)
-    myobj = gTTS(text=txt, lang=langCode, slow=False)
+    myobj = gTTS(text=output, lang=langCode, slow=False)
     myobj.save("welcome.mp3")
 
     return output
